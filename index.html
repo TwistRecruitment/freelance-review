@@ -1,0 +1,156 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Freelance Spend Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: one calm column. Inputs on the left, savings on the right, stacking on phones. Purple used for the result only. */
+:root {
+  --bg: #ffffff;
+  --surface: #f7f4f9;
+  --line: #e4dcea;
+  --fg: #1b1620;
+  --muted: #6b6475;
+  --accent: #a24cca;
+  --accent-ink: #ffffff;
+  --accent-soft: #f1e4f8;
+  --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Manrope", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15111a; --surface: #1f1827; --line: #382c45; --fg: #f3eef7; --muted: #a79eb3;
+    --accent: #c77ae6; --accent-ink: #15111a; --accent-soft: #2f1f3b; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15111a; --surface: #1f1827; --line: #382c45; --fg: #f3eef7; --muted: #a79eb3;
+  --accent: #c77ae6; --accent-ink: #15111a; --accent-soft: #2f1f3b; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.5; padding-inline: 16px; padding-block: 28px 40px; }
+.wrap { max-width: 880px; margin: 0 auto; }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 8px; }
+h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(28px, 5vw, 40px); line-height: 1.1; margin: 0 0 10px; text-wrap: balance; }
+.lede { color: var(--muted); max-width: 60ch; margin: 0 0 28px; }
+.grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 20px; align-items: start; }
+@media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+.panel { border: 1px solid var(--line); border-radius: 10px; padding: 20px; min-width: 0; }
+.panel h2 { font-family: var(--font-display); font-size: 18px; margin: 0 0 16px; }
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.field:last-child { margin-bottom: 0; }
+label { font-weight: 600; font-size: 14px; }
+.hint { font-size: 12px; color: var(--muted); }
+.input-row { display: flex; align-items: center; gap: 8px; }
+.pre { color: var(--muted); font-weight: 600; }
+input[type=number] { width: 100%; font: inherit; font-weight: 600; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font-variant-numeric: tabular-nums; }
+input[type=number]:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.result { background: var(--surface); }
+.big-label { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 4px; }
+.big { font-family: var(--font-display); font-weight: 700; font-size: clamp(34px, 7vw, 52px); line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; margin: 0; }
+.big-sub { margin: 8px 0 20px; color: var(--muted); }
+.big-sub b { color: var(--fg); }
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
+.cmp { border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 12px; min-width: 0; }
+.cmp .k { font-size: 12px; color: var(--muted); margin: 0 0 2px; }
+.cmp .v { font-weight: 700; font-size: 18px; margin: 0; font-variant-numeric: tabular-nums; }
+.bar { height: 10px; border-radius: 5px; background: var(--line); overflow: hidden; margin-bottom: 6px; }
+.bar span { display: block; height: 100%; background: var(--accent); border-radius: 5px; transition: width .25s; }
+.bar-note { font-size: 12px; color: var(--muted); margin: 0 0 18px; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 8px 0; border-top: 1px solid var(--line); font-size: 14px; }
+th { font-weight: 500; color: var(--muted); }
+td { text-align: right; font-weight: 700; }
+.foot { margin-top: 20px; font-size: 13px; color: var(--muted); max-width: 70ch; }
+.foot b { color: var(--fg); }
+@media (prefers-reduced-motion: reduce) { .bar span { transition: none; } }
+</style>
+
+<div class="wrap">
+  <p class="eyebrow">Twist Freelance Spend Review</p>
+  <h1>Where could your freelance budget go further?</h1>
+  <p class="lede">A quick review of what you spend on freelancers today and what the same bookings could cost with top tier UK talent working remotely. Add your own numbers for an indicative view, then we can talk through the detail.</p>
+
+  <div class="grid">
+    <section class="panel" aria-label="Your bookings">
+      <h2>Your current freelance spend</h2>
+      <div class="field">
+        <label for="n">Bookings that could work remotely from the UK</label>
+        <input type="number" id="n" min="1" max="100" step="1" value="3">
+        <span class="hint">For example 3 out of a pool of 10 freelancers.</span>
+      </div>
+      <div class="field">
+        <label for="us">What you pay per hour in the US today</label>
+        <div class="input-row"><span class="pre">$</span><input type="number" id="us" min="1" step="1" value="100"></div>
+        <span class="hint">Senior Designer US average is $100/hr before any agency fee.</span>
+      </div>
+      <div class="field">
+        <label for="uk">Comparable UK rate through Twist</label>
+        <div class="input-row"><span class="pre">$</span><input type="number" id="uk" min="1" step="1" value="60"></div>
+        <span class="hint">Senior Designer UK average is $60/hr including our 20% fee and payroll.</span>
+      </div>
+      <div class="field">
+        <label for="h">Hours per booking each week</label>
+        <input type="number" id="h" min="1" max="80" step="1" value="40">
+      </div>
+    </section>
+
+    <section class="panel result" aria-live="polite" aria-label="Your savings">
+      <p class="big-label">Indicative saving</p>
+      <p class="big" id="month">$0</p>
+      <p class="big-sub">a month, or <b id="pct">0%</b> of the spend on these bookings</p>
+
+      <div class="compare">
+        <div class="cmp"><p class="k">US cost per month</p><p class="v" id="usm">$0</p></div>
+        <div class="cmp"><p class="k">UK cost per month</p><p class="v" id="ukm">$0</p></div>
+      </div>
+      <div class="bar"><span id="barfill" style="width:60%"></span></div>
+      <p class="bar-note" id="barnote">UK cost as a share of US cost</p>
+
+      <table>
+        <tr><th scope="row">Per hour</th><td id="ph">$0</td></tr>
+        <tr><th scope="row">Per week</th><td id="pw">$0</td></tr>
+        <tr><th scope="row">Per month</th><td id="pm">$0</td></tr>
+        <tr><th scope="row">Per year</th><td id="py">$0</td></tr>
+      </table>
+    </section>
+  </div>
+
+  <p class="foot">This is an indicative view based on the rates and hours you enter. Months are 4.3 weeks and years are 52 weeks. UK rates include our standard 20% fee and payroll, with one invoice from Twist. <b>Want a full review of your freelance spend for 2026 and 2027?</b> Chloe Palmer, our Associate Director of Creative Freelance, and Kate Bracero can walk you through where UK talent fits, which roles suit remote working and what other US agencies are saving.</p>
+</div>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var fmt = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+  function val(id, min) {
+    var v = parseFloat($(id).value);
+    return isNaN(v) || v < min ? 0 : v;
+  }
+  function calc() {
+    var n = val("n", 0), us = val("us", 0), uk = val("uk", 0), h = val("h", 0);
+    var hourly = (us - uk) * n;
+    var week = hourly * h;
+    var month = week * 4.3;
+    var year = week * 52;
+    var usMonth = us * n * h * 4.3;
+    var ukMonth = uk * n * h * 4.3;
+    var pct = us > 0 ? Math.round(((us - uk) / us) * 100) : 0;
+    var share = us > 0 ? Math.max(0, Math.min(100, (uk / us) * 100)) : 0;
+    $("month").textContent = fmt.format(month);
+    $("pct").textContent = pct + "%";
+    $("usm").textContent = fmt.format(usMonth);
+    $("ukm").textContent = fmt.format(ukMonth);
+    $("ph").textContent = fmt.format(hourly);
+    $("pw").textContent = fmt.format(week);
+    $("pm").textContent = fmt.format(month);
+    $("py").textContent = fmt.format(year);
+    $("barfill").style.width = share + "%";
+    $("barnote").textContent = "UK cost is " + Math.round(share) + "% of your US cost";
+  }
+  ["n", "us", "uk", "h"].forEach(function (id) { $(id).addEventListener("input", calc); });
+  calc();
+})();
+</script>
+
+</body></html>
